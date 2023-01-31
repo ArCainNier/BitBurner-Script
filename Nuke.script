@@ -1,0 +1,119 @@
+disableLog('ALL')
+//
+var ServerList = ["n00dles",
+	"foodnstuff",
+	"sigma-cosmetics",
+	"joesguns",
+	"hong-fang-tea",
+	"harakiri-sushi",
+	"iron-gym",
+	"darkweb",
+	"nectar-net",
+	"zer0",
+	"max-hardware",
+	"CSEC",
+	"silver-helix",
+	"phantasy",
+	"neo-net",
+	"omega-net",
+	"netlink",
+	"avmnite-02h",
+	"the-hub",
+	"computek",
+	"johnson-ortho",
+	"crush-fitness",
+	"summit-uni",
+	"I.I.I.I",
+	"rothman-uni",
+	"zb-institute",
+	"syscore",
+	"catalyst",
+	"aevum-police",
+	"rho-construction",
+	"millenium-fitness",
+	"lexo-corp",
+	"alpha-ent",
+	"aerocorp",
+	"snap-fitness",
+	"galactic-cyber",
+	"global-pharm",
+	"deltaone",
+	"omnia",
+	"unitalife",
+	"zeus-med",
+	"defcomm",
+	"univ-energy",
+	"icarus",
+	"solaris",
+	"nova-med",
+	"taiyang-digital",
+	"infocomm",
+	"zb-def",
+	"applied-energetics",
+	"run4theh111z",
+	"titan-labs",
+	"microdyne",
+	"helios",
+	"vitalife",
+	"fulcrumtech",
+	"stormtech",
+	"omnitek",
+	"kuai-gong",
+	".",
+	"4sigma",
+	"clarkinc",
+	"blade",
+	"b-and-a",
+	"powerhouse-fitness",
+	"nwo",
+	"fulcrumassets",
+	"megacorp",
+	"The-Cave",
+	"ecorp",]
+//
+var hacklvl = getHackingLevel()
+var program = 0
+var file = ['BruteSSH.exe',
+	'FTPCrack.exe',
+	'relaySMTP.exe',
+	'HTTPWorm.exe',
+	'SQLInject.exe',]
+for (var i = 0; i < file.length; ++i) {
+	var filecheck = file[i]
+	if (fileExists(filecheck)) { ++program }
+}
+//
+for (var i = 0; i < ServerList.length; ++i) {
+	var Server = ServerList[i]
+	var requiredport = getServerNumPortsRequired(Server)
+	var requiredhacklvl = getServerRequiredHackingLevel(Server)
+	if (hasRootAccess(Server)) {
+		print(Server + " server already accessed")
+	}
+	else if ((hasRootAccess(Server) == false) && (requiredport <= program) && (hacklvl >= requiredhacklvl)) {
+		print(Server)
+		{
+			if (requiredport >= 1) {
+				brutessh(Server);
+				if (requiredport >= 2)
+					ftpcrack(Server); {
+					if (requiredport >= 3)
+						relaysmtp(Server); {
+						if (requiredport >= 4)
+							httpworm(Server); {
+							if (requiredport >= 5)
+								sqlinject(Server);
+						}
+					}
+				}
+			}
+		}
+		if (hacklvl >= requiredhacklvl) {
+			nuke(Server);
+			print(Server + "hacked")
+		}
+	}
+	else {
+		print(Server + " need hack lvl " + requiredhacklvl)
+	}
+}

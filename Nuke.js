@@ -1,4 +1,5 @@
-disableLog('ALL')
+export async function main(ns) {
+  ns.disableLog('ALL')
 //
 var ServerList = ["n00dles",
 	"foodnstuff",
@@ -71,7 +72,7 @@ var ServerList = ["n00dles",
 	"The-Cave",
 	"ecorp",]
 //
-var hacklvl = getHackingLevel()
+var hacklvl = ns.getHackingLevel()
 var program = 0
 var file = ['BruteSSH.exe',
 	'FTPCrack.exe',
@@ -80,40 +81,41 @@ var file = ['BruteSSH.exe',
 	'SQLInject.exe',]
 for (var i = 0; i < file.length; ++i) {
 	var filecheck = file[i]
-	if (fileExists(filecheck)) { ++program }
+	if (ns.fileExists(filecheck)) { ++program }
 }
 //
 for (var i = 0; i < ServerList.length; ++i) {
 	var Server = ServerList[i]
-	var requiredport = getServerNumPortsRequired(Server)
-	var requiredhacklvl = getServerRequiredHackingLevel(Server)
-	if (hasRootAccess(Server)) {
-		print(Server + " server already accessed")
+	var requiredport = ns.getServerNumPortsRequired(Server)
+	var requiredhacklvl = ns.getServerRequiredHackingLevel(Server)
+	if (ns.hasRootAccess(Server)) {
+		ns.print(Server + " server already accessed")
 	}
-	else if ((hasRootAccess(Server) == false) && (requiredport <= program) && (hacklvl >= requiredhacklvl)) {
-		print(Server)
+	else if ((ns.hasRootAccess(Server) == false) && (requiredport <= program) && (hacklvl >= requiredhacklvl)) {
+		ns.print(Server)
 		{
 			if (requiredport >= 1) {
-				brutessh(Server);
+				ns.brutessh(Server);
 				if (requiredport >= 2)
-					ftpcrack(Server); {
+					ns.ftpcrack(Server); {
 					if (requiredport >= 3)
-						relaysmtp(Server); {
+						ns.relaysmtp(Server); {
 						if (requiredport >= 4)
-							httpworm(Server); {
+							ns.httpworm(Server); {
 							if (requiredport >= 5)
-								sqlinject(Server);
+								ns.sqlinject(Server);
 						}
 					}
 				}
 			}
 		}
 		if (hacklvl >= requiredhacklvl) {
-			nuke(Server);
-			print(Server + "hacked")
+			ns.nuke(Server);
+			ns.print(Server + "hacked")
 		}
 	}
 	else {
-		print(Server + " need hack lvl " + requiredhacklvl)
+		ns.print(Server + " need hack lvl " + requiredhacklvl)
 	}
+}
 }
